@@ -1,0 +1,7 @@
+{
+  "name": "light-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
