@@ -15,13 +15,19 @@ export class HomePage implements OnInit {
   latestBlock: string = '';
   parentHash: string = '';
   stateRoot: string = '';
-  network: string = '';
+  network: string = 'polkadot';
+  synced: boolean = false;
 
   constructor() {}
 
   async ngOnInit() {
-    this.network = Sc.WellKnownChain.polkadot;
-    const provider = new ScProvider(Sc, Sc.WellKnownChain.polkadot);
+    await this.callAndSync();
+  }
+
+  async callAndSync() {
+    this.synced = false;
+    let selectedNetwork: Sc.WellKnownChain = this.network as Sc.WellKnownChain;
+    const provider = new ScProvider(Sc, selectedNetwork);
     await provider.connect();
     const polkadotApi = await ApiPromise.create({ provider });
     await polkadotApi.rpc.chain.subscribeNewHeads((lastHeader) => {
@@ -29,6 +35,7 @@ export class HomePage implements OnInit {
       this.stateRoot = lastHeader.stateRoot.toString();
       this.latestBlock = lastHeader.number.toString();
       this.parentHash = lastHeader.parentHash.toString();
+      this.synced = true;
     });
   }
 }

@@ -13,7 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
+
+  <ion-item>
+    <ion-label><b>Select Network</b></ion-label>
+    <ion-select (ionChange)="callAndSync()" [(ngModel)]="network" placeholder="Select network">
+      <ion-select-option value="polkadot">Polkadot</ion-select-option>
+      <ion-select-option value="ksmcc3">Kusama</ion-select-option>
+      <ion-select-option value="westend2">Westend 2.0</ion-select-option>
+      <ion-select-option value="rococo_v2_2">Rococo</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="!synced" >
+    <ion-label><b>Syncing to {{ network }}... please hold!</b></ion-label>
+    <ion-spinner name="dots"></ion-spinner>
+  </ion-item>
+
+  <ion-list *ngIf="synced">
     <ion-item>
       <ion-label>CURRENTLY CONNECTED TO: <strong>{{ network }}</strong></ion-label>
     </ion-item>
