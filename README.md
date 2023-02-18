@@ -28,4 +28,33 @@ ionic serve
 ```
 
 
-## Building Mobile Binaries
+## Building Binaries
+
+To build for web, run the following:
+
+```sh
+# install dependencies
+npm install
+npm run build
+```
+
+You can then use the `www/` directory to deploy wherever.
+
+### iOS and Android
+
+For Android, ensure you have Android Studio installed on your system:
+
+```sh
+# install dependencies
+npm install
+ionic capacitor build android
+```
+
+For iOS, make sure you have Xcode and CocoaPods installed on your system:
+
+```sh
+# if you don't have CocoaPods:
+sudo gem install cocoapods
+# install dependencies
+npm install
+ionic capacitor build ios
