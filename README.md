@@ -8,8 +8,8 @@ The ideal setup for this should be for it to run as a background process in conj
 
  - Operates as a light client for the chosen network
  - Shows latest synced block header data for a chosen network
- - Multi-network selection (unimplemented)
- - Syncing continues whether application is open or not, allowing you to be always up to date! (unimplemented)
+ - Multi-network selection
+ - Syncing continues whether application is open or not, allowing you to be always up to date! (needs testing)
 
 
 
