@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ApiPromise } from '@polkadot/api';
 import { ScProvider } from '@polkadot/rpc-provider';
 import * as Sc from '@substrate/connect';
-
+// Needed for polkadot-js
 import '@polkadot/api-augment';
+import { App } from '@capacitor/app';
+import { BackgroundTask } from '@capawesome/capacitor-background-task';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +25,17 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     await this.callAndSync();
+    if (Capacitor.isNativePlatform()) {
+      App.addListener('appStateChange', async ({ isActive }) => {
+        if (isActive) {
+          return;
+        }
+        const taskId = await BackgroundTask.beforeExit(async () => {
+          await this.callAndSync();
+          BackgroundTask.finish({ taskId });
+        });
+      });
+    }
   }
 
   async callAndSync() {
